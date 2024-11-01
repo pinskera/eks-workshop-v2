@@ -18,6 +18,7 @@ spec:
         prometheus.io/path: /actuator/prometheus
         prometheus.io/port: "8080"
         prometheus.io/scrape: "true"
+        eks.amazonaws.com/role-arn: "arn:aws:iam::689342893243:role/ui-vpclattice-role"
       labels:
         app.kubernetes.io/name: ui
         app.kubernetes.io/instance: ui
