@@ -3,6 +3,14 @@ kind: Deployment
 metadata:
   name: ui
 spec:
-  # HIGHLIGHT
-  replicas: 1
-
+  template:
+    metadata:
+      annotations:
+        eks.amazonaws.com/role-arn: "arn:aws:iam::689342893243:role/ui-vpclattice-role"  # Add Pod Identity role
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ui
+data:
+  ENDPOINTS_CARTS: https://carts-service-0ba278018a6cba4d2.7d67968.vpc-lattice-svcs.us-west-2.on.aws
