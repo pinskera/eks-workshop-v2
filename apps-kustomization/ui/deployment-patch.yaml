@@ -24,4 +24,4 @@ kind: ConfigMap
 metadata:
   name: ui
 data:
-  ENDPOINTS_CARTS: https://carts-service-0ba278018a6cba4d2.7d67968.vpc-lattice-svcs.us-west-2.on.aws
+  ENDPOINTS_CARTS: https://carts-service-0401890bf9133c72d.7d67968.vpc-lattice-svcs.us-west-2.on.aws
