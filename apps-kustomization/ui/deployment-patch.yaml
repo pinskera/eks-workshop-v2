@@ -6,6 +6,7 @@ spec:
   template:
     metadata:
       annotations:
+        eks.amazonaws.com/pod-identity-init: "true"
         eks.amazonaws.com/role-arn: "arn:aws:iam::689342893243:role/ui-vpclattice-role"
     spec:
       containers:
