@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
 - gateway.yaml
 - httproute.yaml
-- service.yaml
 
+patchesStrategicMerge:
+- service-patch.yaml
 namespace: carts
