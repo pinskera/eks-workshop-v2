@@ -6,11 +6,9 @@ metadata:
 spec:
   parentRefs:
   - name: carts-gateway
+    namespace: carts
   rules:
-  - matches:
-    - path:
-        type: PathPrefix
-        value: /carts
-    backendRefs:
+  - backendRefs:
     - name: carts
       port: 80
+      weight: 1
