@@ -1,6 +1,0 @@
-apiVersion: gateway.networking.k8s.io/v1beta1
-kind: GatewayClass
-metadata:
-  name: vpc-lattice
-spec:
-  controllerName: gateway.amazonaws.com/vpc-lattice
