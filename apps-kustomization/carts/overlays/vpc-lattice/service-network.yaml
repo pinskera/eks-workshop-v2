@@ -3,4 +3,4 @@ kind: GatewayClass
 metadata:
   name: vpc-lattice
 spec:
-  controllerName: vpc-lattice.gateway.networking.k8s.io
+  controllerName: gateway.amazonaws.com/vpc-lattice
