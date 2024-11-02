@@ -5,6 +5,17 @@ resources:
 - gateway.yaml
 - httproute.yaml
 
-patchesStrategicMerge:
-- service-patch.yaml
+patches:
+- patch: |-
+    apiVersion: v1
+    kind: Service
+    metadata:
+      name: carts
+      namespace: carts
+      annotations:
+        networking.amazonaws.com/vpc-lattice-service: "true"
+  target:
+    kind: Service
+    name: carts
+    
 namespace: carts
