@@ -9,9 +9,7 @@ patches:
   target:
     kind: Service
     name: carts
-    namespace: carts
 - path: overlays/vpc-lattice/deployment-patch.yaml
   target:
     kind: Deployment
     name: carts
-    namespace: carts
