@@ -2,14 +2,14 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - https://github.com/aws-samples/eks-workshop-v2/manifests/base-application/carts?ref=stable
-  #- overlays/vpc-lattice/httproute.yaml
+  - overlays/vpc-lattice/httproute.yaml
 
-#patches:
-#- path: overlays/vpc-lattice/service-patch.yaml
-#  target:
-#    kind: Service
-#    name: carts
-#- path: overlays/vpc-lattice/deployment-patch.yaml
-#  target:
-#    kind: Deployment
-#    name: carts
+patches:
+- path: overlays/vpc-lattice/service-patch.yaml
+  target:
+    kind: Service
+    name: carts
+- path: overlays/vpc-lattice/deployment-patch.yaml
+  target:
+    kind: Deployment
+    name: carts
