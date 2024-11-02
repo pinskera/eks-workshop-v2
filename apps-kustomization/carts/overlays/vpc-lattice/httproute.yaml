@@ -1,14 +1,22 @@
 apiVersion: gateway.networking.k8s.io/v1beta1
 kind: HTTPRoute
 metadata:
-  name: carts-route
+  name: carts
   namespace: carts
 spec:
+  hostnames:
+  - carts.myorg.com
   parentRefs:
-  - name: carts-gateway
-    namespace: carts
+  - kind: Gateway
+    name: lattice-gateway
+    namespace: lattice-gateway
+    sectionName: http-listener
   rules:
   - backendRefs:
     - name: carts
+      kind: Service
       port: 80
-      weight: 1
+    matches:
+    - path:
+        type: PathPrefix
+        value: /
