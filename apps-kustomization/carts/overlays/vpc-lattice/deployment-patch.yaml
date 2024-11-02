@@ -7,3 +7,9 @@ spec:
     metadata:
       annotations:
         vpc-lattices-svcs.amazonaws.com/agent-inject: "true"
+    spec:
+      containers:
+      - name: carts
+        env:
+        - name: AWS_REGION
+          value: us-west-2
