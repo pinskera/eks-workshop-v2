@@ -4,7 +4,7 @@ metadata:
   name: carts-gateway
   namespace: carts
 spec:
-  gatewayClassName: vpc-lattice
+  gatewayClassName: amazon-vpc-lattice  # Change this to use the accepted GatewayClass
   listeners:
   - name: http
     port: 80
