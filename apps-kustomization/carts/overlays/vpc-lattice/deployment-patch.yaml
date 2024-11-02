@@ -1,0 +1,9 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: carts
+spec:
+  template:
+    metadata:
+      annotations:
+        vpc-lattices-svcs.amazonaws.com/agent-inject: "true"
