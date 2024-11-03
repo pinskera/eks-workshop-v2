@@ -14,9 +14,9 @@ patches:
     metadata:
       name: carts
       annotations:
-        application-networking.k8s.aws/target-group-attributes: |
+        networking.amazonaws.com/vpc-lattice-service: "true"
+        networking.amazonaws.com/vpc-lattice-target-group-attributes: |
           {"health_check_enabled":true,"health_check_port":8080,"health_check_protocol":"HTTP","health_check_path":"/actuator/health/liveness","health_check_interval_seconds":30,"health_check_timeout_seconds":5,"healthy_threshold_count":5,"unhealthy_threshold_count":2}
-        application-networking.k8s.aws/enabled: "true"
     spec:
       ports:
         - port: 80
