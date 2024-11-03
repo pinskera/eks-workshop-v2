@@ -7,36 +7,6 @@ resources:
 
 patches:
 - patch: |
-    apiVersion: apps/v1
-    kind: Deployment
-    metadata:
-      name: carts
-    spec:
-      template:
-        metadata:
-          annotations:
-            vpc-lattices-svcs.amazonaws.com/agent-inject: "true"
-          containers:
-          - name: envoy-sigv4
-            env:
-            - name: ENVOY_PORT
-              value: "15000"
-            - name: AWS_REGION
-              value: us-west-2
-            - name: AWS_DEFAULT_REGION
-              value: us-west-2
-            ports:
-            - containerPort: 15000
-          - name: carts
-            env:
-            - name: AWS_REGION
-              value: us-west-2
-            - name: AWS_DEFAULT_REGION
-              value: us-west-2
-  target:
-    kind: Deployment
-    name: carts
-- patch: |
     apiVersion: v1
     kind: Service
     metadata:
