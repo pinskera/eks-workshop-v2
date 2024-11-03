@@ -4,8 +4,8 @@ metadata:
   name: carts
   namespace: carts
 spec:
-  #hostnames:
-  #- carts.myorg.com
+  hostnames:
+  - carts.myorg.com
   parentRefs:
   - kind: Gateway
     name: lattice-gateway
