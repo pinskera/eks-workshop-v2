@@ -26,31 +26,19 @@ patches:
           annotations:
             vpc-lattices-svcs.amazonaws.com/agent-inject: "true"
         spec:
-          initContainers:
-          - name: iptables-init
-            image: public.ecr.aws/seb-demo/iptables:v1
-            securityContext:
-              capabilities:
-                add: ["NET_ADMIN"]
-              privileged: true
-            command:
-            - /bin/sh
-            - -c
-            - |
-              iptables -t nat -N EGRESS_PROXY
-              iptables -t nat -A OUTPUT -p tcp -d 169.254.171.0/24 -j EGRESS_PROXY
-              iptables -t nat -A EGRESS_PROXY -m owner --gid-owner 0 -j RETURN
-              iptables -t nat -A EGRESS_PROXY -p tcp -j REDIRECT --to-ports 8080
-              iptables -t nat -L -n -v
           containers:
           - name: envoy-sigv4
-            image: public.ecr.aws/seb-demo/envoy-sigv4:v0.5
             env:
-            - name: APP_DOMAIN
-              value: "carts.myorg.com"
-            - name: CA_ARN
-              value: "arn:aws:acm-pca:us-west-2:689342893243:certificate-authority/f3b27d8d-f0d8-4d4e-9d5f-924c1bf2bee8"
+            - name: AWS_REGION
+              value: us-west-2
+            - name: AWS_DEFAULT_REGION
+              value: us-west-2
           - name: carts
             env:
             - name: AWS_REGION
               value: us-west-2
+            - name: AWS_DEFAULT_REGION
+              value: us-west-2
+  target:
+    kind: Deployment
+    name: carts
