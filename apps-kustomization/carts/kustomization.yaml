@@ -19,7 +19,7 @@ patches:
           annotations:
             vpc-lattices-svcs.amazonaws.com/agent-inject: "true"
             vpc-lattices-svcs.amazonaws.com/agent-proxy-port: "15000"
-            vpc-lattices-svcs.amazonaws.com/agent-init-ready: "true"
+            vpc-lattices-svcs.amazonaws.com/sidecar-ports: '[{"name":"proxy","port":15000,"protocol":"tcp"}]'
         spec:
           containers:
           - name: carts
