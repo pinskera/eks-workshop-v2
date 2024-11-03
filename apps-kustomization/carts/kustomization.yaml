@@ -5,7 +5,7 @@ namespace: carts
 
 resources:
 - https://github.com/aws-samples/eks-workshop-v2/manifests/base-application/carts?ref=stable
-- httproute.yaml
+- overlays/vpc-lattice/httproute.yaml
 
 patches:
 - patch: |
