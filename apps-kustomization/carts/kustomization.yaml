@@ -23,13 +23,25 @@ patches:
               capabilities:
                 add: ["NET_ADMIN"]
               privileged: true
+            command:
+            - /bin/sh
+            - -c
+            - |
+              iptables -t nat -N EGRESS_PROXY
+              iptables -t nat -A OUTPUT -p tcp -d 169.254.171.0/24 -j EGRESS_PROXY
+              iptables -t nat -A EGRESS_PROXY -m owner --gid-owner 0 -j RETURN
+              iptables -t nat -A EGRESS_PROXY -p tcp -j REDIRECT --to-ports 15000
           containers:
           - name: envoy-sigv4
             env:
+            - name: ENVOY_PORT
+              value: "15000"
             - name: AWS_REGION
               value: us-west-2
             - name: AWS_DEFAULT_REGION
               value: us-west-2
+            ports:
+            - containerPort: 15000
           - name: carts
             env:
             - name: AWS_REGION
