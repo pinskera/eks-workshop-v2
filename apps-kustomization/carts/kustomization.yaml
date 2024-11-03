@@ -14,14 +14,9 @@ patches:
     metadata:
       name: carts
       annotations:
-        networking.amazonaws.com/vpc-lattice-service: "true"
-        networking.amazonaws.com/vpc-lattice-health-check-port: "8080"
-        networking.amazonaws.com/vpc-lattice-health-check-protocol: "HTTP"
-        networking.amazonaws.com/vpc-lattice-health-check-path: "/actuator/health/liveness"
-        networking.amazonaws.com/vpc-lattice-health-check-healthy-threshold: "5"
-        networking.amazonaws.com/vpc-lattice-health-check-unhealthy-threshold: "2"
-        networking.amazonaws.com/vpc-lattice-health-check-timeout: "5"
-        networking.amazonaws.com/vpc-lattice-health-check-interval: "30"
+    application-networking.k8s.aws/target-group-attributes: |
+      {"health_check_enabled":true,"health_check_port":8080,"health_check_protocol":"HTTP","health_check_path":"/actuator/health/liveness","health_check_interval_seconds":30,"health_check_timeout_seconds":5,"healthy_threshold_count":5,"unhealthy_threshold_count":2}
+    application-networking.k8s.aws/enabled: "true"
   target:
     kind: Service
     name: carts
