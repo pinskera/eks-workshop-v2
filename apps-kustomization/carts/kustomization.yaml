@@ -1,9 +1,11 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
+namespace: carts
+
 resources:
-  - https://github.com/aws-samples/eks-workshop-v2/manifests/base-application/carts?ref=stable
-  - overlays/vpc-lattice/httproute.yaml
+- https://github.com/aws-samples/eks-workshop-v2/manifests/base-application/carts?ref=stable
+- httproute.yaml
 
 patches:
 - patch: |
@@ -13,14 +15,13 @@ patches:
       name: carts
     spec:
       template:
+        metadata:
+          annotations:
+            vpc-lattices-svcs.amazonaws.com/agent-inject: "true"
+            vpc-lattices-svcs.amazonaws.com/agent-proxy-port: "15000"
+            vpc-lattices-svcs.amazonaws.com/agent-init-ready: "true"
         spec:
           containers:
-          - name: envoy-sigv4
-            env:
-            - name: AWS_REGION
-              value: us-west-2
-            - name: AWS_DEFAULT_REGION
-              value: us-west-2
           - name: carts
             env:
             - name: AWS_REGION
