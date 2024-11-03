@@ -7,6 +7,7 @@ resources:
 - https://github.com/aws-samples/eks-workshop-v2/manifests/base-application/carts?ref=stable
 - overlays/vpc-lattice/httproute.yaml
 
+patches:
 - patch: |
     apiVersion: v1
     kind: Service
