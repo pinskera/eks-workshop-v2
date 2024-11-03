@@ -7,30 +7,6 @@ resources:
 - https://github.com/aws-samples/eks-workshop-v2/manifests/base-application/carts?ref=stable
 - overlays/vpc-lattice/httproute.yaml
 
-patches:
-- patch: |
-    apiVersion: apps/v1
-    kind: Deployment
-    metadata:
-      name: carts
-    spec:
-      template:
-        metadata:
-          annotations:
-            vpc-lattices-svcs.amazonaws.com/agent-inject: "true"
-            vpc-lattices-svcs.amazonaws.com/agent-proxy-port: "15000"
-            vpc-lattices-svcs.amazonaws.com/sidecar-ports: '[{"name":"proxy","port":15000,"protocol":"tcp"}]'
-        spec:
-          containers:
-          - name: carts
-            env:
-            - name: AWS_REGION
-              value: us-west-2
-            - name: AWS_DEFAULT_REGION
-              value: us-west-2
-  target:
-    kind: Deployment
-    name: carts
 - patch: |
     apiVersion: v1
     kind: Service
