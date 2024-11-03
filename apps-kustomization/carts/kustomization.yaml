@@ -6,16 +6,6 @@ resources:
 
 patches:
 - patch: |
-    apiVersion: v1
-    kind: Service
-    metadata:
-      name: carts
-      annotations:
-        networking.amazonaws.com/vpc-lattice-service: "true"
-  target:
-    kind: Service
-    name: carts
-- patch: |
     apiVersion: apps/v1
     kind: Deployment
     metadata:
@@ -26,19 +16,22 @@ patches:
           annotations:
             vpc-lattices-svcs.amazonaws.com/agent-inject: "true"
         spec:
-          containers:
-          - name: envoy-sigv4
-            env:
-            - name: AWS_REGION
-              value: us-west-2
-            - name: AWS_DEFAULT_REGION
-              value: us-west-2
-          - name: carts
-            env:
-            - name: AWS_REGION
-              value: us-west-2
-            - name: AWS_DEFAULT_REGION
-              value: us-west-2
+          initContainers:
+          - name: iptables-init
+            securityContext:
+              capabilities:
+                add: ["NET_ADMIN"]
+              privileged: true
   target:
     kind: Deployment
+    name: carts
+- patch: |
+    apiVersion: v1
+    kind: Service
+    metadata:
+      name: carts
+      annotations:
+        networking.amazonaws.com/vpc-lattice-service: "true"
+  target:
+    kind: Service
     name: carts
