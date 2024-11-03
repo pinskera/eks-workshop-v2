@@ -7,6 +7,30 @@ resources:
 
 patches:
 - patch: |
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: carts
+    spec:
+      template:
+        spec:
+          containers:
+          - name: envoy-sigv4
+            env:
+            - name: AWS_REGION
+              value: us-west-2
+            - name: AWS_DEFAULT_REGION
+              value: us-west-2
+          - name: carts
+            env:
+            - name: AWS_REGION
+              value: us-west-2
+            - name: AWS_DEFAULT_REGION
+              value: us-west-2
+  target:
+    kind: Deployment
+    name: carts
+- patch: |
     apiVersion: v1
     kind: Service
     metadata:
