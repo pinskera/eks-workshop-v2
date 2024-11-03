@@ -4,22 +4,31 @@ kind: Kustomization
 namespace: carts
 
 resources:
-- https://github.com/aws-samples/eks-workshop-v2/manifests/base-application/carts?ref=stable
-- overlays/vpc-lattice/httproute.yaml
+  - https://github.com/aws-samples/eks-workshop-v2/manifests/base-application/carts?ref=stable
+  - overlays/vpc-lattice/httproute.yaml
 
 patches:
-- patch: |
-    apiVersion: v1
-    kind: Service
-    metadata:
-      name: carts
-      annotations:
-        networking.amazonaws.com/vpc-lattice-service: "true"
-        networking.amazonaws.com/vpc-lattice-target-group-attributes: |
-          {"health_check_enabled":true,"health_check_port":8080,"health_check_protocol":"HTTP","health_check_path":"/actuator/health/liveness","health_check_interval_seconds":30,"health_check_timeout_seconds":5,"healthy_threshold_count":5,"unhealthy_threshold_count":2}
-    spec:
-      ports:
-        - port: 80
-          targetPort: 8080
-          protocol: TCP
-          name: http
+  - patch: |
+      apiVersion: v1
+      kind: Service
+      metadata:
+        name: carts
+        annotations:
+          networking.amazonaws.com/vpc-lattice-service: "true"
+          networking.amazonaws.com/vpc-lattice-target-group-attributes: |
+            {
+              "health_check_enabled": true,
+              "health_check_port": 80,
+              "health_check_protocol": "HTTP",
+              "health_check_path": "/actuator/health/liveness",
+              "health_check_interval_seconds": 30,
+              "health_check_timeout_seconds": 5,
+              "healthy_threshold_count": 5,
+              "unhealthy_threshold_count": 2
+            }
+      spec:
+        ports:
+          - port: 80
+            targetPort: 8080
+            protocol: TCP
+            name: http
