@@ -16,21 +16,6 @@ patches:
         metadata:
           annotations:
             vpc-lattices-svcs.amazonaws.com/agent-inject: "true"
-        spec:
-          initContainers:
-          - name: iptables-init
-            securityContext:
-              capabilities:
-                add: ["NET_ADMIN"]
-              privileged: true
-            command:
-            - /bin/sh
-            - -c
-            - |
-              iptables -t nat -N EGRESS_PROXY
-              iptables -t nat -A OUTPUT -p tcp -d 169.254.171.0/24 -j EGRESS_PROXY
-              iptables -t nat -A EGRESS_PROXY -m owner --gid-owner 0 -j RETURN
-              iptables -t nat -A EGRESS_PROXY -p tcp -j REDIRECT --to-ports 15000
           containers:
           - name: envoy-sigv4
             env:
