@@ -20,3 +20,25 @@ spec:
     - path:
         type: PathPrefix
         value: /
+---
+apiVersion: vpc.lattice.aws/v1beta2
+kind: TargetGroupPolicy
+metadata:
+  name: carts-tg-policy
+  namespace: carts
+spec:
+  targetRef:
+    group: ""
+    kind: Service
+    name: carts
+  targetGroup:
+    healthCheck:
+      enabled: true
+      protocol: HTTP
+      port: 8080
+      path: /actuator/health/liveness
+      intervalSeconds: 30
+      timeoutSeconds: 5
+      healthyThresholdCount: 5
+      unhealthyThresholdCount: 2
+
